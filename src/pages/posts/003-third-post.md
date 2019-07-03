@@ -2,7 +2,6 @@
 title: 'Third Post - Why do we use it?'
 date: 2019-07-03 07:00:00
 author: 'Olga S'
-path: '/third-post'
 image: ../../images/javascript.jpg
 tags:
 - design
