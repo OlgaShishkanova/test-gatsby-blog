@@ -7,9 +7,11 @@ import Img from 'gatsby-image'
 import { slugify } from '../util/utilifyFunctions'
 import authors from '../util/authors'
 
-const SinglePost = ({ data }) => {
+const SinglePost = ({ data, pageContext }) => {
     const post = data.markdownRemark.frontmatter
     const author = authors.find(x => x.name === post.author)
+
+    const baseUrl = 'https://gatsbytutorial.co.uk/'
     return (
         <Layout pageTitle={post.title} postAuthor={author} authorImageFluid={data.file.childImageSharp.fluid}>
             <SEO title={post.title} />
@@ -33,6 +35,21 @@ const SinglePost = ({ data }) => {
                     </ul>
                 </CardBody>
             </Card>
+            <h3 className="text-center">
+                Share this post
+            </h3>
+            <div className="text-center social-share-links">
+                <ul>
+                    <li><a href={'https://www.facebook.com/sharer.php?u=' + baseUrl + pageContext.slug} target="_blank" rel="noopener noreferrer" className="facebook">
+                        FB share
+                        </a>
+                    </li>
+                    <li><a href={'https://twitter.com/share?url-' + baseUrl + pageContext.slug + '&text=' + post.title + '&via' + 'twitterHandle'} target="_blank" rel="noopener noreferrer" className="twitter">
+                        TW share
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </Layout>
     )
 }
