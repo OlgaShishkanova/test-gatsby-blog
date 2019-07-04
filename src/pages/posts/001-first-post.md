@@ -1,7 +1,7 @@
 ---
 title: 'First Post - What is Lorem Ipsum?'
 date: 2019-06-30 07:00:00
-author: 'Olga S'
+author: 'John Doe'
 image: ../../images/javascript.jpg
 tags:
 - code

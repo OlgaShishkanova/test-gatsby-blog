@@ -1,7 +1,7 @@
 ---
 title: 'Second Post - Where does it come from?'
 date: 2019-07-01 07:00:00
-author: 'Olga S'
+author: 'Jane Doe'
 image: ../../images/javascript.jpg
 tags:
 - code
