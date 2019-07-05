@@ -44,7 +44,7 @@ const SinglePost = ({ data, pageContext }) => {
                         FB share
                         </a>
                     </li>
-                    <li><a href={'https://twitter.com/share?url-' + baseUrl + pageContext.slug + '&text=' + post.title + '&via' + 'twitterHandle'} target="_blank" rel="noopener noreferrer" className="twitter">
+                    <li><a href={'https://twitter.com/share?url-' + baseUrl + pageContext.slug + '&text=' + post.title + '&via twitterHandle'} target="_blank" rel="noopener noreferrer" className="twitter">
                         TW share
                         </a>
                     </li>
