@@ -1,3 +1,8 @@
+const dotenv = require('dotenv')
+
+if(process.env.NODE_ENV !== 'production') {
+  dotenv.config()
+}
 module.exports = {
   siteMetadata: {
     title: `Code Blog`,
@@ -36,9 +41,14 @@ module.exports = {
     },
     `gatsby-plugin-sass`,
     `gatsby-plugin-catch-links`,
-    `gatsby-transformer-remark`
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-transformer-remark`,
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: `atpza04kuqbf`,
+        // Learn about environment variables: https://gatsby.dev/env-vars
+        accessToken:  process.env.CONTENTFUL_ACCESS_TOKEN,
+      },
+    },
   ],
 }
