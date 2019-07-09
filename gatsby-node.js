@@ -3,17 +3,17 @@ const path = require('path')
 const authors = require('./src/util/authors')
 const _ = require('lodash')
 
-exports.onCreateNode = ({ node, actions }) => {
-    const { createNodeField } = actions
-    if (node.internal.type === "MarkdownRemark") {
-        const slugFromTitle = slugify(node.frontmatter.title)
-        createNodeField({
-            node,
-            name: 'slug',
-            value: slugFromTitle
-        })
-    }
-}
+// exports.onCreateNode = ({ node, actions }) => {
+//     const { createNodeField } = actions
+//     if (node.internal.type === "ContentfulPost") {
+//         const slugFromTitle = slugify(node.title)
+//         createNodeField({
+//             node,
+//             name: 'slug',
+//             value: slugFromTitle
+//         })
+//     }
+// }
 exports.createPages = ({ actions, graphql }) => {
     const { createPage } = actions;
 
@@ -27,16 +27,12 @@ exports.createPages = ({ actions, graphql }) => {
 
     return graphql(`
     {
-        allMarkdownRemark{
+        allContentfulPost{
             edges{
                 node{
-                    frontmatter{
-                        author
-                        tags
-                    }
-                    fields{ 
-                        slug
-                    }
+                    author
+                    tags
+                    slug
                 }
             }
         }
@@ -44,24 +40,23 @@ exports.createPages = ({ actions, graphql }) => {
     `).then(
         res => {
             if (res.errors) return Promise.reject(res.errors)
-            const posts = res.data.allMarkdownRemark.edges
-
+            const posts = res.data.allContentfulPost.edges
             //Create single blog post pages
             posts.forEach(({ node }) => {
                 createPage({
-                    path: node.fields.slug,
+                    path: node.slug,
                     component: templates.singlePost,
                     context: {
-                        slug: node.fields.slug,
-                        imageUrl: authors.find(x => x.name === node.frontmatter.author).imageUrl
+                        slug: node.slug,
+                        imageUrl: authors.find(x => x.name === node.author).imageUrl
                     }
                 })
             })
             // Get all tags
             let tags = []
             _.each(posts, edge => {
-                if (_.get(edge, 'node.frontmatter.tags')) {
-                    tags = tags.concat(edge.node.frontmatter.tags)
+                if (_.get(edge, 'node.tags')) {
+                    tags = tags.concat(edge.node.tags)
                 }
             })
             // ['design', 'code', ...]
@@ -94,12 +89,12 @@ exports.createPages = ({ actions, graphql }) => {
 
             const postsPerPage = 2
             const numberOfPages = Math.ceil(posts.length / postsPerPage)
-            
-            Array.from({ length: numberOfPages}).forEach((_, index) => {
+
+            Array.from({ length: numberOfPages }).forEach((_, index) => {
                 const isFirstPage = index === 0
                 const currentPage = index + 1
-                
-                if(isFirstPage) return
+
+                if (isFirstPage) return
 
                 createPage({
                     path: `/page/${currentPage}`,
@@ -112,12 +107,11 @@ exports.createPages = ({ actions, graphql }) => {
                     }
                 })
             })
-
             authors.forEach(author => {
                 createPage({
                     path: `/author/${slugify(author.name)}`,
                     component: templates.authorPosts,
-                    context:{
+                    context: {
                         authorName: author.name,
                         imageUrl: author.imageUrl
                     }
