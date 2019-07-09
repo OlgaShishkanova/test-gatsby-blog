@@ -1,4 +1,7 @@
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
+
+#### Notes about Contentful are [below](#contentful)
+
 <p align="center">
   <a href="https://www.gatsbyjs.org">
     <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
@@ -95,3 +98,66 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
 
 <!-- AUTO-GENERATED-CONTENT:END -->
+
+
+
+# <a name="contentful"></a>Notes about Contentful
+
+1.  **Environment Variables**
+
+CONTENTFUL_ACCESS_TOKEN should be stored as a Environment Variable in .env files (in development mode) or in Netlify in production mode (this function is available only on paid plans)
+
+[link to documentation](https://www.netlify.com/docs/continuous-deployment/#build-environment-variables)
+
+**Steps**:
+- Under your own netlify console platform, please go to settings
+- Choose build & deploy tab (can be found on sidebar)
+- Choose environment sub-tab option
+- Click edit variables and add/put your credentials in
+- Done!
+
+2. **Using Rich Text type**
+The info from this field comes as an object. So we need to transform it to HTML. 
+We should use @contentful/rich-text-react-renderer and @contentful/rich-text-types. Options can be changed.
+The example:
+
+```
+import React from 'react'
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { BLOCKS, MARKS } from "@contentful/rich-text-types"
+
+const Bold = ({ children }) => <span className="bold">{children}</span>
+const Text = ({ children }) => <p className="align-center">{children}</p>
+
+const options = {
+    renderMark: {
+        [MARKS.BOLD]: text => <Bold>{text}</Bold>,
+    },
+    renderNode: {
+        [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
+    },
+}
+export const transformText = (text) => {
+    return documentToReactComponents(text, options)
+}
+
+```
+3. **Using GatsbyContentfulSizes with images from Contentful**
+Instead of this approach that is used with images from repository itself:
+```
+ image{
+      childImageSharp{
+          fluid(maxWidth: 650){
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+```
+We use this approach that works with images from Contentful:
+```
+image {
+      sizes(maxWidth: 650) {
+        ...GatsbyContentfulSizes
+        }
+      }
+```
