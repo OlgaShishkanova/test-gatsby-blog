@@ -105,7 +105,7 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 
 1.  **Environment Variables**
 
-CONTENTFUL_ACCESS_TOKEN should be stored as a Environment Variable in .env files (in development mode) or in Netlify in production mode (this function is available only on paid plans)
+CONTENTFUL_ACCESS_TOKEN should be stored as a **Environment Variable** in .env files (in development mode) or in Netlify in production mode (this function is available only on paid plans)
 
 [link to documentation](https://www.netlify.com/docs/continuous-deployment/#build-environment-variables)
 
@@ -118,7 +118,7 @@ CONTENTFUL_ACCESS_TOKEN should be stored as a Environment Variable in .env files
 
 2. **Using Rich Text type**
 <p>The info from this field comes as an object. So we need to transform it to HTML. </p>
-<p>We should use @contentful/rich-text-react-renderer and @contentful/rich-text-types.</p>
+<p>We can use **@contentful/rich-text-react-renderer** and **@contentful/rich-text-types**.</p>
 The example:
 
 ```
@@ -142,8 +142,8 @@ export const transformText = (text) => {
 }
 
 ```
-3. **Using GatsbyContentfulSizes with images from Contentful**
-<p>Instead of this approach that is used with images from repository itself:</p>
+3. **Using GatsbyContentfulSizes (gatsby-image) with images from Contentful**
+<p>Instead of this approach that is used with images **from repository** itself:</p>
 
 ```
 import Img from 'gatsby-image'
@@ -159,7 +159,7 @@ import Img from 'gatsby-image'
 <Img fluid={node.frontmatter.image.childImageSharp.fluid} />
 ```
 
-We use this approach that works with images from Contentful:
+We use this approach that works with images **from Contentful**:
 ```
 import Img from 'gatsby-image'
 
