@@ -117,8 +117,11 @@ CONTENTFUL_ACCESS_TOKEN should be stored as a **Environment Variable** in .env f
 - Done!
 
 2. **Using Rich Text type**
-<p>The info from this field comes as an object. So we need to transform it to HTML. </p>
-<p>We can use **@contentful/rich-text-react-renderer** and **@contentful/rich-text-types**.</p>
+
+The info from this field comes as an object. So we need to transform it to HTML.
+
+We can use **@contentful/rich-text-react-renderer** and **@contentful/rich-text-types**.
+
 The example:
 
 ```
@@ -143,7 +146,8 @@ export const transformText = (text) => {
 
 ```
 3. **Using GatsbyContentfulSizes (gatsby-image) with images from Contentful**
-<p>Instead of this approach that is used with images **from repository** itself:</p>
+
+Instead of this approach that is used with images **from repository** itself:
 
 ```
 import Img from 'gatsby-image'
