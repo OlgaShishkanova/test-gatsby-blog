@@ -21,7 +21,7 @@ const IndexPage = () => {
               author={node.author}
               slug={node.slug}
               date={node.date}
-              body={node.postText.json}
+              body={node.shortText}
               fluid={node.image.sizes}
               tags={node.tags}
             />
@@ -46,13 +46,11 @@ query{
           date(formatString: "MMM Do YYYY")
           author
           tags
+          shortText
           image {
             sizes(maxWidth: 600) {
               ...GatsbyContentfulSizes
             }
-          }
-          postText{
-            json
           }
           slug
       }

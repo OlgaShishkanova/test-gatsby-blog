@@ -4,21 +4,21 @@ import Layout from '../components/layout';
 import Post from '../components/Post'
 
 const tagPosts = ({ data, pageContext }) => {
-    const {tag} = pageContext
-    const { totalCount } = data.allMarkdownRemark
+    const { tag } = pageContext
+    const { totalCount } = data.allContentfulPost
     const pageHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} tagges with "${tag}"`
 
     return (
         <Layout pageTitle={pageHeader}>
-            {data.allMarkdownRemark.edges.map(({node}) => (
+            {data.allContentfulPost.edges.map(({ node }) => (
                 <Post key={node.id}
-                slug={node.fields.slug}
-                title={node.frontmatter.title}
-                author={node.frontmatter.author}
-                date={node.frontmatter.date}
-                body={node.excerpt}
-                tags={node.frontmatter.tags}
-                fluid={node.frontmatter.image.childImageSharp.fluid}
+                    slug={node.slug}
+                    title={node.title}
+                    author={node.author}
+                    date={node.date}
+                    body={node.shortText}
+                    tags={node.tags}
+                    fluid={node.image.sizes}
 
                 />
             ))}
@@ -26,36 +26,30 @@ const tagPosts = ({ data, pageContext }) => {
         </Layout>
     )
 }
-// export const tagQuery = graphql`
-//     query($tag: String!){
-//         allMarkdownRemark(
-//             sort: {fields: [frontmatter___date], order: DESC}
-//             filter: { frontmatter: {tags: {in: [$tag]}}}
-//         ){
-//             totalCount
-//             edges{
-//                 node{
-//                     id
-//                     frontmatter{
-//                         title
-//                         date(formatString: "MMM Do YYYY")
-//                         author
-//                         tags
-//                         image{
-//                             childImageSharp{
-//                               fluid(maxWidth: 650, maxHeight: 371){
-//                                 ...GatsbyImageSharpFluid
-//                               }
-//                             }
-//                           }
-//                     }
-//                     fields{
-//                         slug
-//                     }
-//                     excerpt
-//                 }
-//             }
-//         }
-//     }
-// `
+export const tagQuery = graphql`
+    query($tag: String!){
+        allContentfulPost(
+            sort: {fields: [date], order: DESC}
+            filter: {tags: {in: [$tag]}}
+        ){
+            totalCount
+            edges{
+                node{
+                    id
+                    title
+                    date(formatString: "MMM Do YYYY")
+                    author
+                    tags
+                    slug
+                    shortText
+                      image {
+                        sizes(maxWidth: 650, maxHeight: 371) {
+                              ...GatsbyContentfulSizes
+                            }
+                          }
+                    }
+            }
+        }
+    }
+`
 export default tagPosts

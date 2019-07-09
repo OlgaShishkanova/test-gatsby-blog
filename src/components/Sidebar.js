@@ -60,7 +60,7 @@ const Sidebar = ({ author, authorFluid }) => (
                         {data.allContentfulPost.edges.map(({ node }) => (
                             <Card key={node.id}>
                                 <Link to={node.slug}>
-                                    <Img className="card-image-top" fluid={node.image.fluid.src} />
+                                    <Img className="card-image-top" fluid={node.image.sizes} />
                                 </Link>
                                 <CardBody>
                                     <CardTitle>
@@ -87,9 +87,9 @@ query sidebarQuery{
             node{
                 id
                     title
-                    image{
-                        fluid{
-                          src
+                      image {
+                        sizes(maxWidth: 700) {
+                          ...GatsbyContentfulSizes
                         }
                       }
                     slug

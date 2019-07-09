@@ -16,3 +16,6 @@ const options = {
 export const transformText = (text) => {
     return documentToReactComponents(text, options)
 }
+export const transformPlainText = (text) => {
+    return documentToReactComponents(text)
+}
