@@ -26,36 +26,36 @@ const tagPosts = ({ data, pageContext }) => {
         </Layout>
     )
 }
-export const tagQuery = graphql`
-    query($tag: String!){
-        allMarkdownRemark(
-            sort: {fields: [frontmatter___date], order: DESC}
-            filter: { frontmatter: {tags: {in: [$tag]}}}
-        ){
-            totalCount
-            edges{
-                node{
-                    id
-                    frontmatter{
-                        title
-                        date(formatString: "MMM Do YYYY")
-                        author
-                        tags
-                        image{
-                            childImageSharp{
-                              fluid(maxWidth: 650, maxHeight: 371){
-                                ...GatsbyImageSharpFluid
-                              }
-                            }
-                          }
-                    }
-                    fields{
-                        slug
-                    }
-                    excerpt
-                }
-            }
-        }
-    }
-`
+// export const tagQuery = graphql`
+//     query($tag: String!){
+//         allMarkdownRemark(
+//             sort: {fields: [frontmatter___date], order: DESC}
+//             filter: { frontmatter: {tags: {in: [$tag]}}}
+//         ){
+//             totalCount
+//             edges{
+//                 node{
+//                     id
+//                     frontmatter{
+//                         title
+//                         date(formatString: "MMM Do YYYY")
+//                         author
+//                         tags
+//                         image{
+//                             childImageSharp{
+//                               fluid(maxWidth: 650, maxHeight: 371){
+//                                 ...GatsbyImageSharpFluid
+//                               }
+//                             }
+//                           }
+//                     }
+//                     fields{
+//                         slug
+//                     }
+//                     excerpt
+//                 }
+//             }
+//         }
+//     }
+// `
 export default tagPosts

@@ -57,15 +57,15 @@ const Sidebar = ({ author, authorFluid }) => (
                  </CardTitle>
                 <StaticQuery query={sidebarQuery} render={(data) => (
                     <div>
-                        {data.allMarkdownRemark.edges.map(({ node }) => (
+                        {data.allContentfulPost.edges.map(({ node }) => (
                             <Card key={node.id}>
-                                <Link to={node.fields.slug}>
-                                    <Img className="card-image-top" fluid={node.frontmatter.image.childImageSharp.fluid} />
+                                <Link to={node.slug}>
+                                    <Img className="card-image-top" fluid={node.image.fluid.src} />
                                 </Link>
                                 <CardBody>
                                     <CardTitle>
-                                        <Link to={node.fields.slug}>
-                                            {node.frontmatter.title}
+                                        <Link to={node.slug}>
+                                            {node.title}
                                         </Link>
                                     </CardTitle>
                                 </CardBody>
@@ -79,26 +79,20 @@ const Sidebar = ({ author, authorFluid }) => (
 )
 const sidebarQuery = graphql`
 query sidebarQuery{
-    allMarkdownRemark(
-        sort: {fields: [frontmatter___date], order: DESC}
+    allContentfulPost(
+        sort: {fields: [date], order: DESC}
         limit: 2
     ){
         edges{
             node{
                 id
-                frontmatter{
                     title
                     image{
-                        childImageSharp{
-                            fluid(maxWidth: 300){
-                                ...GatsbyImageSharpFluid
-                            }
+                        fluid{
+                          src
                         }
-                    }
-                }
-                fields{
+                      }
                     slug
-                }
             }
         }
     }

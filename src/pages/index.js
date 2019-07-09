@@ -13,51 +13,48 @@ const IndexPage = () => {
     <Layout pageTitle="CodeBlog">
       <SEO title="Home" />
       <StaticQuery query={indexQuery} render={data => {
-        numberOfPages = Math.ceil(data.allMarkdownRemark.totalCount / postsPerPage)
+        numberOfPages = Math.ceil(data.allContentfulPost.totalCount / postsPerPage)
         return (
-          <div>{data.allMarkdownRemark.edges.map(({ node }) => (
-            <Post title={node.frontmatter.title}
+          <div>{data.allContentfulPost.edges.map(({ node }) => (
+            <Post title={node.title}
               key={node.id}
-              author={node.frontmatter.author}
-              slug={node.fields.slug}
-              date={node.frontmatter.date}
-              body={node.excerpt}
-              fluid={node.frontmatter.image.childImageSharp.fluid}
-              tags={node.frontmatter.tags}
+              author={node.author}
+              slug={node.slug}
+              date={node.date}
+              body={node.postText.json}
+              fluid={node.image.sizes}
+              tags={node.tags}
             />
           ))}
             <PaginationLinks currentPage={1} numberOfPages={numberOfPages} />
           </div>
         )
       }} />
+
     </Layout>
   )
 }
 const indexQuery = graphql`
 query{
-  allMarkdownRemark(sort: {fields: [frontmatter___date], order: DESC}
+  allContentfulPost(sort: {fields: [date], order: DESC}
     limit: 2){
     totalCount
     edges{
       node{
         id
-         frontmatter{
           title
           date(formatString: "MMM Do YYYY")
           author
           tags
-          image{
-            childImageSharp{
-              fluid(maxWidth: 600){
-                ...GatsbyImageSharpFluid
-              }
+          image {
+            sizes(maxWidth: 600) {
+              ...GatsbyContentfulSizes
             }
           }
-        }
-        fields{
+          postText{
+            json
+          }
           slug
-        }
-        excerpt
       }
     }
   }
