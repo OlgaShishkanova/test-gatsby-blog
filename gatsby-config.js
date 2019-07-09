@@ -42,13 +42,5 @@ module.exports = {
     `gatsby-plugin-sass`,
     `gatsby-plugin-catch-links`,
     `gatsby-transformer-remark`,
-    {
-      resolve: `gatsby-source-contentful`,
-      options: {
-        spaceId: `atpza04kuqbf`,
-        // Learn about environment variables: https://gatsby.dev/env-vars
-        accessToken:  process.env.CONTENTFUL_ACCESS_TOKEN,
-      },
-    },
   ],
 }
