@@ -182,11 +182,11 @@ image {
 Go to this [link](https://www.contentful.com/developers/docs/tutorials/general/automate-site-builds-with-webhooks/).
 And search for - **Configuring a Netlify build hook**
 
-## Problem with Embedded blocks in Rich Text type field
+## The problem with Embedded blocks in Rich Text type field
 
 If Embedded block is added to Rich Text it's necessary to delete .cache folder and run develop script again or else the site will not be built
 The same thing happens when ANYTHING is changed in the Rich Text where Embedded block already exists.
 
-Seems like the problem must be solved https://github.com/gatsbyjs/gatsby/issues/10592 but the updating of gatsby.js and gatsby-source-contentful didn't help
+Seems like the problem must be solved - https://github.com/gatsbyjs/gatsby/issues/10592. But the updating of gatsby.js and gatsby-source-contentful didn't help
 
 
