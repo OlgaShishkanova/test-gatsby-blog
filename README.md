@@ -117,7 +117,7 @@ CONTENTFUL_ACCESS_TOKEN should be stored as a **Environment Variable** in .env f
 - Click edit variables and add/put your credentials in
 - Done!
 
-## Using Rich Text type field
+## Using Rich Text type field (!!! Rich text is not supported in Internet Explorer 11.)
 
 The info from this field comes as an object. So we need to transform it to HTML.
 
