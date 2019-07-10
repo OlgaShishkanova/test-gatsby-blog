@@ -1,5 +1,6 @@
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 
+## [Link](https://thirsty-leavitt-88e307.netlify.com/) to working site 
 #### Notes about Contentful are [below](#contentful)
 
 <p align="center">
@@ -103,9 +104,9 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 
 # <a name="contentful"></a>Notes about Contentful
 
-1.  **Environment Variables**
+###Environment Variables
 
-CONTENTFUL_ACCESS_TOKEN should be stored as a **Environment Variable** in .env files (in development mode) or in Netlify in production mode (this function is available only on paid plans)
+CONTENTFUL_ACCESS_TOKEN should be stored as a **Environment Variable** in .env files (in development mode) or in Netlify in production mode
 
 [link to documentation](https://www.netlify.com/docs/continuous-deployment/#build-environment-variables)
 
@@ -116,7 +117,7 @@ CONTENTFUL_ACCESS_TOKEN should be stored as a **Environment Variable** in .env f
 - Click edit variables and add/put your credentials in
 - Done!
 
-2. **Using Rich Text type**
+###Using Rich Text type
 
 The info from this field comes as an object. So we need to transform it to HTML.
 
@@ -145,7 +146,7 @@ export const transformText = (text) => {
 }
 
 ```
-3. **Using GatsbyContentfulSizes (gatsby-image) with images from Contentful**
+###Using GatsbyContentfulSizes (gatsby-image) with images from Contentful
 
 Instead of this approach that is used with images **from repository** itself:
 
@@ -175,3 +176,10 @@ image {
 
 <Img fluid={node.image.sizes} />
 ```
+
+###Adding continuous deployment from Contentful
+Go to this [link](https://www.contentful.com/developers/docs/tutorials/general/automate-site-builds-with-webhooks/)
+And search for - **Configuring a Netlify build hook**
+
+
+
