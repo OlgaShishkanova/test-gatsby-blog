@@ -106,7 +106,7 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 
 ## Environment Variables
 
-CONTENTFUL_ACCESS_TOKEN should be stored as a **Environment Variable** in .env files (in development mode) or in Netlify in production mode
+CONTENTFUL_ACCESS_TOKEN should be stored as a **Environment Variable** in .env files (in development mode) or in Netlify (in production mode)
 
 [link to documentation](https://www.netlify.com/docs/continuous-deployment/#build-environment-variables)
 
@@ -117,7 +117,7 @@ CONTENTFUL_ACCESS_TOKEN should be stored as a **Environment Variable** in .env f
 - Click edit variables and add/put your credentials in
 - Done!
 
-## Using Rich Text type
+## Using Rich Text type field
 
 The info from this field comes as an object. So we need to transform it to HTML.
 
@@ -182,5 +182,11 @@ image {
 Go to this [link](https://www.contentful.com/developers/docs/tutorials/general/automate-site-builds-with-webhooks/).
 And search for - **Configuring a Netlify build hook**
 
+## Problem with Embedded blocks in Rich Text type field
+
+If Embedded block is added to Rich Text it's necessary to delete .cache folder and run develop script again or else the site will not be built
+The same thing happens when ANYTHING is changed in the Rich Text where Embedded block already exists.
+
+Seems like the problem must be solved https://github.com/gatsbyjs/gatsby/issues/10592 but the updating of gatsby.js and gatsby-source-contentful didn't help
 
 

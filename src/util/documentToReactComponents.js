@@ -31,8 +31,9 @@ const options = {
         [BLOCKS.QUOTE]: (node, children) => <Quote>{children}</Quote>,
         [BLOCKS.HEADING_1]: (node, children) => <H1>{children}</H1>,
         [BLOCKS.HEADING_2]: (node, children) => <H2>{children}</H2>,
-        // !! if embedded block is added later it's necessary to delete .cache folder and run develop again
+        // !! if embedded block is added to Rich Text it's necessary to delete .cache folder and run develop again
         // or else node.data.target.fields will be undefined
+        // The same thing when ANYTHING is changed in the Rich Text where embedded block is.
         [BLOCKS.EMBEDDED_ENTRY]: (node) => {
             const { title, shortText, author, slug } = node.data.target.fields;
             console.log(node.data.target.fields)
