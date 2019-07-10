@@ -1,0 +1,70 @@
+.bold{
+    font-weight: bold;
+  }
+.post-ul{
+    padding-left: 2em;
+    li{
+        &:before{
+            content: "❤";
+            color: rgba(255, 145, 0, 0.918);
+            font-weight: bold;
+            width: 2em;
+            margin-left: -1em; 
+        }
+        p{
+            display: inline-block;
+            vertical-align: top;
+            margin-left: .5em;
+        }
+    }
+}
+.post-blockquote{
+    padding-left: 2em;
+    position: relative;
+    border-top: 2px solid rgba(255, 145, 0, 0.685);
+    border-bottom: 2px solid rgba(255, 145, 0, 0.685);
+    &::after{
+        content: '“';
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-family: monospace;
+        font-size: 3em;
+        color: rgba(255, 145, 0, 0.918);
+    }
+    p{
+        margin-top: 1rem;
+    }
+}
+.post-h1{
+    text-align: left;
+    color: rgba(255, 145, 0, 0.918);
+    font-family: monospace;
+}
+.post-h2{
+    color: white;
+    background-color: rgba(255, 145, 0, 0.918);
+    padding: 0 10px;
+    border-radius: 3px;
+    margin: 0 -10px 0.5rem;
+    font-family: monospace;
+}
+.post-info{
+    color: rgba(255, 145, 0, 0.918);
+}
+code{
+    color: rgba(255, 145, 0, 0.918);
+    background-color: rgba(128, 128, 128, 0.13);
+    padding: 1em;
+    display: block;
+}
+.embedded-block{
+    display: block;
+    color: black;
+    border: 1px solid rgba(255, 145, 0, 0.685);
+    padding: 1em;
+    margin-bottom: 1em;
+    &:hover{
+        color: rgba(58, 128, 0, 0.753);
+    }
+}

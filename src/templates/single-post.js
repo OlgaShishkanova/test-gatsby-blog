@@ -21,8 +21,8 @@ const SinglePost = ({ data, pageContext }) => {
                 <Img className="card-image-top" fluid={post.image.sizes} />
                 <CardBody>
                     <CardSubtitle>
-                        <span className="text-info">{post.date}</span> by{' '}
-                        <span className="text-info">{post.author}</span>
+                        <span className="post-info">{post.date}</span> by{' '}
+                        <span className="post-info">{post.author}</span>
                     </CardSubtitle>
                     {transformText(post.postText.json)}
                     <ul className="post-tags">
