@@ -47,8 +47,7 @@ exports.createPages = ({ actions, graphql }) => {
                     path: node.slug,
                     component: templates.singlePost,
                     context: {
-                        slug: node.slug,
-                        imageUrl: authors.find(x => x.name === node.author).imageUrl
+                        slug: node.slug
                     }
                 })
             })

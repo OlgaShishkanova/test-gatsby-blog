@@ -15,7 +15,7 @@ const SinglePost = ({ data, pageContext }) => {
     const baseUrl = 'https://gatsbytutorial.co.uk/'
    
     return (
-        <Layout pageTitle={post.title} postAuthor={author} authorImageFluid={data.file.childImageSharp.fluid}>
+        <Layout pageTitle={post.title} postAuthor={author} authorImageFluid={post.personReference.imageUrl.sizes}>
             <SEO title={post.title} />
             <Card>
                 <Img className="card-image-top" fluid={post.image.sizes} />
@@ -56,13 +56,20 @@ const SinglePost = ({ data, pageContext }) => {
     )
 }
 export const postQuery = graphql`
-    query blogPostBySlug($slug: String!, $imageUrl: String!){
+    query blogPostBySlug($slug: String!){
         contentfulPost(slug: {eq: $slug}){
             id
                 title
                 author
                 date(formatString: "MMM Do YYYY")
                 tags
+                personReference{
+                    imageUrl{
+                        sizes(maxWidth: 700) {
+                            ...GatsbyContentfulSizes
+                          }
+                    }
+                  }
                 image {
                     sizes(maxWidth: 700) {
                       ...GatsbyContentfulSizes
@@ -71,13 +78,6 @@ export const postQuery = graphql`
                   postText{
                     json
                   }
-        }
-        file(relativePath: {eq: $imageUrl}){
-            childImageSharp{
-                fluid(maxWidth: 300){
-                  ...GatsbyImageSharpFluid
-                }
-              }
         }
     }
 `
