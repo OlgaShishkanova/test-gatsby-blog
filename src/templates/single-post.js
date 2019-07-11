@@ -6,16 +6,14 @@ import { Card, CardBody, CardSubtitle, Badge } from 'reactstrap'
 import Img from 'gatsby-image'
 import { slugify } from '../util/utilifyFunctions'
 import { transformText } from '../util/documentToReactComponents'
-import authors from '../util/authors'
 
 const SinglePost = ({ data, pageContext }) => {
     const post = data.contentfulPost
-    const author = authors.find(x => x.name === post.author)
 
     const baseUrl = 'https://gatsbytutorial.co.uk/'
    
     return (
-        <Layout pageTitle={post.title} postAuthor={author} authorImageFluid={post.personReference.imageUrl.sizes}>
+        <Layout pageTitle={post.title} postAuthor={post.personReference} authorImageFluid={post.personReference.imageUrl.sizes}>
             <SEO title={post.title} />
             <Card>
                 <Img className="card-image-top" fluid={post.image.sizes} />
@@ -69,6 +67,16 @@ export const postQuery = graphql`
                             ...GatsbyContentfulSizes
                           }
                     }
+                    bio {
+                        childMarkdownRemark{
+                            html
+                          }
+                      }
+                      facebook
+                      twitter
+                      instagram
+                      linkedin
+                      name
                   }
                 image {
                     sizes(maxWidth: 700) {

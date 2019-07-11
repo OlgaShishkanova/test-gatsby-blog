@@ -1,6 +1,6 @@
 const { slugify } = require('./src/util/utilifyFunctions')
 const path = require('path')
-const authors = require('./src/util/authors')
+//const authors = require('./src/util/authors')
 const _ = require('lodash')
 
 // exports.onCreateNode = ({ node, actions }) => {
@@ -33,6 +33,13 @@ exports.createPages = ({ actions, graphql }) => {
                     author
                     tags
                     slug
+                }
+            }
+        }
+        allContentfulPerson{
+            edges{
+                node{
+                    name
                 }
             }
         }
@@ -106,13 +113,13 @@ exports.createPages = ({ actions, graphql }) => {
                     }
                 })
             })
-            authors.forEach(author => {
+            const authors = res.data.allContentfulPerson.edges
+            authors.forEach(({ node })  => {
                 createPage({
-                    path: `/author/${slugify(author.name)}`,
+                    path: `/author/${slugify(node.name)}`,
                     component: templates.authorPosts,
                     context: {
-                        authorName: author.name,
-                        imageUrl: author.imageUrl
+                        authorName: node.name
                     }
                 })
             })

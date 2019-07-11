@@ -13,14 +13,14 @@ const Sidebar = ({ author, authorFluid }) => (
                             {author.name}
                         </CardTitle>
                         <CardText>
-                            {author.bio}
+                            <div dangerouslySetInnerHTML={{__html: author.bio.childMarkdownRemark.html}}/>
                         </CardText>
                         <div className="author-social-links text-center">
                             <ul>
-                                <li><a href={author.facebook} target="_blank" rel="noopener noreferrer">FB</a></li>
-                                <li><a href={author.twitter} target="_blank" rel="noopener noreferrer">TW</a></li>
-                                <li><a href={author.instagram} target="_blank" rel="noopener noreferrer">IN</a></li>
-                                <li><a href={author.linkedin} target="_blank" rel="noopener noreferrer">Li</a></li>
+                                <li><a href={author.facebook} target="_blank" rel="noopener noreferrer" className="facebook">FB</a></li>
+                                <li><a href={author.twitter} target="_blank" rel="noopener noreferrer" className="twitter">TW</a></li>
+                                <li><a href={author.instagram} target="_blank" rel="noopener noreferrer" className="instagram">IN</a></li>
+                                <li><a href={author.linkedin} target="_blank" rel="noopener noreferrer" className="linkedin">Li</a></li>
                             </ul>
                         </div>
                     </CardBody>

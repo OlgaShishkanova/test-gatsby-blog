@@ -21,7 +21,7 @@ const TeamPage = () => (
               <Card style={{ minHeight: '100%' }}>
                 <CardBody>
                   <CardTitle>{node.name}</CardTitle>
-                  <CardText>{node.bio.bio}</CardText>
+                  <CardText> <div dangerouslySetInnerHTML={{ __html: node.bio.childMarkdownRemark.html }} /></CardText>
                   <Button className="text-uppercase" color="primary" href={`/author/${slugify(node.name)}`}>View posts</Button>
                 </CardBody>
               </Card>
@@ -47,7 +47,9 @@ export const personsQuery = graphql`
             }
             id
             bio {
-              bio
+              childMarkdownRemark{
+                  html
+                }
             }
           }
         }
