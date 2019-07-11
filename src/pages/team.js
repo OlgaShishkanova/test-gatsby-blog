@@ -1,46 +1,58 @@
 import React from "react"
-
+import { graphql, StaticQuery } from 'gatsby';
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import authors from '../util/authors'
-import { Card, CardText, CardBody, CardTitle, Button, Row} from 'reactstrap'
-import JohnImage from '../images/john.jpg'
-import JaneImage from '../images/jane.jpg'
-import {slugify} from '../util/utilifyFunctions'
+import { Card, CardText, CardBody, CardTitle, Button, Row } from 'reactstrap'
+import Img from 'gatsby-image'
+import { slugify } from '../util/utilifyFunctions'
 
 const TeamPage = () => (
   <Layout pageTitle="Our Team">
     <SEO title="Team" />
-    <Row className="mb-4">
-      <div className="col-md-3">
-        <img src={JohnImage} style={{maxWidth: '100%'}} alt="John profile"/>
-      </div>
-      <div className="col-md-8">
-        <Card style={{minHeight: '100%'}}>
-          <CardBody>
-            <CardTitle>{authors[0].name}</CardTitle>
-            <CardText>{authors[0].bio}</CardText>
-            <Button className="text-uppercase" color="primary" href={`/author/${slugify(authors[0].name)}`}>View posts</Button>
-          </CardBody>
-        </Card>
-      </div>
-    </Row>
 
-    <Row className="mb-4">
-      <div className="col-md-3">
-        <img src={JaneImage} style={{maxWidth: '100%'}} alt="Jane profile"/>
-      </div>
-      <div className="col-md-8">
-        <Card style={{minHeight: '100%'}}>
-          <CardBody>
-            <CardTitle>{authors[1].name}</CardTitle>
-            <CardText>{authors[1].bio}</CardText>
-            <Button className="text-uppercase" color="primary" href={`/author/${slugify(authors[1].name)}`}>View posts</Button>
-          </CardBody>
-        </Card>
-      </div>
-    </Row>
+    <StaticQuery query={personsQuery} render={data => {
+      return (
+        <div>{data.allContentfulPerson.edges.map(({ node }) => (
+          <Row className="mb-4" key={node.id}>
+            <div className="col-md-3">
+              <Img style={{ maxWidth: '100%' }} fluid={node.imageUrl.sizes} />
+            </div>
+            <div className="col-md-8">
+              <Card style={{ minHeight: '100%' }}>
+                <CardBody>
+                  <CardTitle>{node.name}</CardTitle>
+                  <CardText>{node.bio.bio}</CardText>
+                  <Button className="text-uppercase" color="primary" href={`/author/${slugify(node.name)}`}>View posts</Button>
+                </CardBody>
+              </Card>
+            </div>
+          </Row>
+        ))}
+        </div>
+      )
+    }} />
   </Layout>
 )
+
+export const personsQuery = graphql`
+    query{
+      allContentfulPerson{
+        edges {
+          node {
+            name
+            imageUrl {
+              sizes(maxWidth: 700) {
+                ...GatsbyContentfulSizes
+              }
+            }
+            id
+            bio {
+              bio
+            }
+          }
+        }
+        }
+    }
+`
 
 export default TeamPage
