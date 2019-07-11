@@ -1,18 +1,17 @@
 import React from 'react'
-import authors from '../util/authors'
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import Post from '../components/Post';
 
 const authorPosts = ({ data, pageContext }) => {
     const { totalCount } = data.allContentfulPost
-    const author = authors.find(x => x.name === pageContext.authorName)
+    const author = data.contentfulPerson
     const posts = totalCount === 1 ? "post" : "posts"
     const pageHeader = `${totalCount} ${posts} by: ${pageContext.authorName}`
 
     return (
         <Layout pageTitle={pageHeader} postAuthor={author}
-            authorImageFluid={data.file.childImageSharp.fluid}>
+            authorImageFluid={author.imageUrl.sizes}>
             {data.allContentfulPost.edges.map(({ node }) => (
                 <Post key={node.id}
                     slug={node.slug}
@@ -30,7 +29,7 @@ const authorPosts = ({ data, pageContext }) => {
 }
 
 export const authorQuery = graphql`
-    query($authorName: String!, $imageUrl: String!){
+    query($authorName: String!){
         allContentfulPost(
             sort: {fields: [date], order: DESC}
             filter: {author: {eq: $authorName}}
@@ -53,13 +52,24 @@ export const authorQuery = graphql`
                 }
             }
         }
-        file(relativePath: {eq: $imageUrl}){
-            childImageSharp{
-                fluid(maxWidth: 300){
-                  ...GatsbyImageSharpFluid
+        contentfulPerson(name: {eq: $authorName}){
+                imageUrl {
+                  sizes(maxWidth: 700) {
+                    ...GatsbyContentfulSizes
+                  }
                 }
-              }
+                bio {
+                    childMarkdownRemark{
+                        html
+                      }
+                  }
+                  facebook
+                  twitter
+                  instagram
+                  linkedin
+                  name
         }
+
     }
 `
 export default authorPosts
